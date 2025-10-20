@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Демо приложение - Защищено VPN</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .status {
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        .vpn-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .features {
+            text-align: left;
+            margin: 1rem 0;
+        }
+        .feature {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="vpn-icon">🔒</div>
+        <h1>Демо приложение</h1>
+        <div class="status">
+            ✅ Доступ разрешен через VPN
+        </div>
+        <div class="info">
+            <p><strong>Статус:</strong> Подключено к VPN</p>
+            <p><strong>IP адрес:</strong> <span id="client-ip">Загрузка...</span></p>
+            <p><strong>Время:</strong> <span id="current-time"></span></p>
+        </div>
+        
+        <div class="features">
+            <h3>Возможности приложения:</h3>
+            <div class="feature">🔐 Безопасный доступ только через VPN</div>
+            <div class="feature">📊 Мониторинг подключения</div>
+            <div class="feature">🌐 Защищенная среда</div>
+            <div class="feature">⚡ Быстрый отклик</div>
+        </div>
+        
+        <p>Это приложение доступно только для пользователей, подключенных к VPN.</p>
+    </div>
+
+    <script>
+        // Получение IP адреса клиента
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('client-ip').textContent = data.ip;
+            })
+            .catch(() => {
+                document.getElementById('client-ip').textContent = 'Не удалось определить';
+            });
+
+        // Обновление времени
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleString('ru-RU');
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
